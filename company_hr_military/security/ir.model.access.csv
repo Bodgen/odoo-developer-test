@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_company_hr_military_tcc_user,company.hr.military.tcc user,model_company_hr_military_tcc,hr.group_hr_user,1,0,0,0
+access_company_hr_military_tcc_manager,company.hr.military.tcc manager,model_company_hr_military_tcc,hr.group_hr_manager,1,1,1,1
+

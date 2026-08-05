@@ -1,0 +1,20 @@
+<odoo>
+    <record id="employee_form_military" model="ir.ui.view">
+        <field name="name">hr.employee.form.military</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//page[@name='personal_information']//group[@name='hr_document_group']"
+                  position="after">
+                <group name="military_information"
+                       string="Військовий облік">
+                   <field name="is_reserved"/>
+                   <field name="is_mobilized"/>
+                   <field name="tcc_id" options="{'no_create':True}"/>
+                   <field name="registry_number"
+                          placeholder="Введіть номер у ЄДРПВР"/>
+               </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
