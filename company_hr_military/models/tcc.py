@@ -41,13 +41,13 @@ class TccModel(models.Model):
     )
 
     _code_unique = models.Constraint(
-        "UNIQUE(code)",
+        "UNIQUE(code) WHERE code IS NOT NULL",
         "Код ТЦК та СП повинен бути унікальним",
     )
 
     def copy(self, default=None):
         raise UserError(
-            _("Дублювання записів ТЦК та СП заборонено.")
+            "Дублювання записів ТЦК та СП заборонено."
         )
 
     @api.depends("phone")
@@ -60,6 +60,6 @@ class TccModel(models.Model):
         for record in self:
             if not _is_valid_phone(record.phone):
                 raise ValidationError(
-                    _("Номер повинен мати формат "
-                    "+380XXXXXXXXX або 0XXXXXXXXX.")
+                    "Номер повинен мати формат "
+                    "+380XXXXXXXXX або 0XXXXXXXXX."
                 )

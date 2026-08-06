@@ -34,7 +34,7 @@ class HrEmployee(models.Model):
     )
 
     _registry_number_unique = models.Constraint(
-        "UNIQUE(registry_number)",
+        "UNIQUE(registry_number) WHERE registry_number IS NOT NULL",
         "Співробітник із таким номером у ЄДРПВР вже існує.",
     )
 
@@ -43,18 +43,16 @@ class HrEmployee(models.Model):
         for employee in self:
             if employee.is_reserved and employee.is_mobilized:
                 raise ValidationError(
-                    _(
-                        "Співробітник не може бути одночасно "
-                        "заброньованим і мобілізованим."
-                    )
+                    "Співробітник не може бути одночасно "
+                    "заброньованим і мобілізованим."
                 )
 
-    @api.constrains("military_registry_number")
+    @api.constrains("registry_number")
     def _check_military_registry_number(self):
         for employee in self:
             number = employee.registry_number
 
             if number and not re.fullmatch(r"[0-9]+", number):
                 raise ValidationError(
-                    _("Номер у ЄДРПВР повинен містити лише цифри.")
+                    "Номер у ЄДРПВР повинен містити лише цифри."
                 )
